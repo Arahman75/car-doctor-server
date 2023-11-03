@@ -9,7 +9,11 @@ const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: [
+        'http://localhost:5173' ||
+        'https://car-doctor-client-5975b.web.app',
+        'https://car-doctor-client-5975b.firebaseapp.com'
+    ],
     credentials: true
 }));
 app.use(express.json());
@@ -68,7 +72,7 @@ async function run() {
         app.post('/jwt', logger, async (req, res) => {
             const user = req.body;
             console.log(user);
-            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '6h' })
             res
                 .cookie('token', token, {
                     httpOnly: true,
